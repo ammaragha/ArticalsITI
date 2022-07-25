@@ -28,7 +28,7 @@ class Model extends DBConnect
         $stmt = $this->con->prepare("SELECT * FROM $this->table WHERE id = $id");
         $stmt->execute();
         $res = $stmt->fetch();
-        return count($res) > 0 ? $res : false;
+        return $res ? $res : false;
     }
 
     //insert

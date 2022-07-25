@@ -9,7 +9,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="articals.php?page=create">Add artical</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="articals.php">My articals</a>
+                </li>
 
             </ul>
             <?php
