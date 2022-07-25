@@ -27,7 +27,7 @@ try {
         description varchar(100),
         image varchar(100),
         created_at DATE,
-        content varchar(100) NOT NULL
+        content TEXT
     ");
 
     $articalsTable->addFK('user_id', 'users', 'id');

@@ -11,7 +11,9 @@ use App\Models\Core\Request;
 
 $appController = new AppController;
 
-if ($page == "any") {
+if ($page == "viewArtical") {
+    $request = new Request('id');
+    $appController->viewArtical($request);
 }  else {
     $appController->index();
 }

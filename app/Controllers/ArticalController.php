@@ -72,7 +72,10 @@ class ArticalController extends Controller
 
         $artical = (new Artical)->find($artical_id);
         if ($artical) {
-            $this->policy($user_id, $artical['user_id']);
+            $can  = $this->policy($user_id, $artical['user_id']);
+            if (!$can) {
+                return Redirect::to('articals');
+            }
             SessionSys::setNew(['data' => $artical]);
             return $this->view('edit.php');
         } else {
@@ -98,12 +101,15 @@ class ArticalController extends Controller
 
         //model
         $artical = (new Artical)->find($artical_id);
+
         if ($artical) {
-            $this->policy($user_id, $artical['user_id']);
+            $can = $this->policy($user_id, $artical['user_id']);
             $errors = $this->validateUpdate($req);
             if ($errors) {
                 SessionSys::setNew(['errs' => $errors]); //set errors
                 return Redirect::to('articals', 'edit');
+            } elseif (!$can) {
+                return Redirect::to('articals');
             } else {
                 $updated = (new Artical)->update($artical_id, [
                     'title' => $title,
@@ -133,7 +139,8 @@ class ArticalController extends Controller
         $artical = (new Artical)->find($artical_id);
 
         if ($artical) {
-            $this->policy($user_id, $artical['user_id']);
+            $can = $this->policy($user_id, $artical['user_id']);
+            if (!$can) return Redirect::to('articals');
             unlink($artical['image']);
             (new Artical)->delete($artical_id);
             SessionSys::setNew(['k' => "Artical deleted"]);
@@ -196,12 +203,12 @@ class ArticalController extends Controller
 
 
 
-    public function policy($user_id, $artical_id)
+    public function policy($user_id, $artical_user_id): bool
     {
-        if ($artical_id != $user_id) {
+        if ($artical_user_id != $user_id) {
             SessionSys::setNew(['errs' => ["ITS NOT UR ARTICAL"]]);
-            return Redirect::to('articals');
-        }
+            return false;
+        } else return true;
     }
 
     public function updateImage($newImg, array $artical)

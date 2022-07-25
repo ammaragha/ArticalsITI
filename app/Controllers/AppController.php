@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Artical;
 use App\Models\Core\Controller;
+use App\Models\Core\Redirect;
 use App\Models\Core\SessionSys;
 use App\Models\Core\Request;
 
@@ -24,5 +25,15 @@ class AppController extends Controller
     }
 
 
-    
+    public function viewArtical(Request $req)
+    {
+        $id = (int)$req->inputs['id'];
+        $artical = (new Artical)->find($id);
+        if ($artical) {
+            SessionSys::setNew(['data' => $artical]);
+            return $this->view('articals/show.php');
+        } else {
+            return Redirect::to('index');
+        }
+    }
 }

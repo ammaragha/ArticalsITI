@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Models;
+
 use App\Models\Core\Model;
+
 class User extends Model
 {
 
@@ -8,6 +11,7 @@ class User extends Model
 
     static function getName($id)
     {
-        return (new User)->find($id)['name'];
+        $user = (new User)->find($id);
+        return $user['first_name'] . ' ' . $user['last_name'];
     }
 }

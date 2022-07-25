@@ -61,7 +61,7 @@
                                 } else {
                                     echo "<tr class='text-center'><td colspan='6'>NO DATA</td></tr>";
                                 }
-                                //unset($_SESSION['data']);
+                                unset($_SESSION['data']);
                             }
                             ?>
 

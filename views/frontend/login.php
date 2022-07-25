@@ -23,7 +23,7 @@
 
         <div class="col">
             <!-- Simple link -->
-            <a href="auth.php?page=forget">Forgot password?</a>
+            <a href="auth.php?page=register">Register?</a>
         </div>
     </div>
 
